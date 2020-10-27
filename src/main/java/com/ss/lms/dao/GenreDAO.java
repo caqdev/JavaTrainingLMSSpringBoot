@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.stereotype.Repository;
 
 import com.ss.lms.entity.Genre;
 
@@ -16,15 +17,16 @@ import com.ss.lms.entity.Genre;
  * @genre caq
  *
  */
+@Repository
 public class GenreDAO extends BaseDAO<Genre> implements ResultSetExtractor<List<Genre>>{
 
-		public Integer addGenre(Genre genre) throws ClassNotFoundException, SQLException {
-			return jdbcTemplate.update("INSERT INTO tbl_genre (genre_name) VALUES (?)", new Object[] { genre.getGenreName() });
+		public void addGenre(Genre genre) throws ClassNotFoundException, SQLException {
+			jdbcTemplate.update("INSERT INTO tbl_genre (genre_name) VALUES (?)", new Object[] { genre.getGenreName() });
 		}
 		
-//		public Integer addGenreWithPk(Genre genre) throws ClassNotFoundException, SQLException {
-//			return jdbcTemplate.update("INSERT INTO tbl_genre (genre_name) VALUES (?)", new Object[] { genre.getGenreName() });
-//		}
+		public Integer addGenreWithPk(Genre genre) throws ClassNotFoundException, SQLException {
+			return jdbcTemplate.update("INSERT INTO tbl_genre (genre_name) VALUES (?)", new Object[] { genre.getGenreName() });
+		}
 
 		public void updateGenre(Genre genre) throws ClassNotFoundException, SQLException {
 			jdbcTemplate.update("UPDATE tbl_genre SET genre_name = ? WHERE genre_id = ?",

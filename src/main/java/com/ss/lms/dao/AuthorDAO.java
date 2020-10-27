@@ -20,13 +20,13 @@ import com.ss.lms.entity.Author;
 @Repository
 public class AuthorDAO extends BaseDAO<Author> implements ResultSetExtractor<List<Author>>{
 
-	public Integer addAuthor(Author author) throws ClassNotFoundException, SQLException {
-		return jdbcTemplate.update("INSERT INTO tbl_author (authorName) VALUES (?)", new Object[] { author.getAuthorName() });
+	public void addAuthor(Author author) throws ClassNotFoundException, SQLException {
+		jdbcTemplate.update("INSERT INTO tbl_author (authorName) VALUES (?)", new Object[] { author.getAuthorName() });
 	}
 
-//	public Integer addAuthorWithPk(Author author) throws ClassNotFoundException, SQLException {
-//		return jdbcTemplate.update("INSERT INTO tbl_author (authorName) VALUES (?)", new Object[] { author.getAuthorName() });
-//	}
+	public Integer addAuthorWithPk(Author author) throws ClassNotFoundException, SQLException {
+		return jdbcTemplate.update("INSERT INTO tbl_author (authorName) VALUES (?)", new Object[] { author.getAuthorName() });
+	}
 
 	public void updateAuthor(Author author) throws ClassNotFoundException, SQLException {
 		jdbcTemplate.update("UPDATE tbl_author SET authorName = ? WHERE authorId = ?",

@@ -4,6 +4,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ss.lms.dao.AuthorDAO;
 import com.ss.lms.dao.BookDAO;
@@ -20,6 +23,7 @@ import com.ss.lms.entity.Genre;
 import com.ss.lms.entity.LibraryBranch;
 import com.ss.lms.entity.Publisher;
 
+@RestController
 public class AdministratorService {
 
 	@Autowired
@@ -48,7 +52,7 @@ public class AdministratorService {
 			if (book.getTitle() != null && book.getTitle().length() > 45) {
 				return "Book Title cannot be empty and should be at most 45 characters in length";
 			}
-			book.setBookId(bdao.addBook(book));//formerly addBookWithPk
+			book.setBookId(bdao.addBookWithPk(book));//formerly addBookWithPk
 			for (Author a : book.getAuthors()) {
 				adao.addBookAuthors(book.getBookId(), a.getAuthorId());
 			}
@@ -67,7 +71,7 @@ public class AdministratorService {
 			if (author.getAuthorName() != null && author.getAuthorName().length() > 45) {
 				return "Author name cannot be empty and should be at most 45 characters in length";
 			}
-			author.setAuthorId(adao.addAuthor(author));//Formerly addAuthorWithPK
+			author.setAuthorId(adao.addAuthorWithPk(author));//Formerly addAuthorWithPK
 			return "Author added successfully";
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -86,7 +90,7 @@ public class AdministratorService {
 			if(borrower.getBorrowerPhone() != null && borrower.getBorrowerPhone().length() > 45) {
 				return "Borrower phone cannot be empty and should be at most 45 characters in length";
 			}
-			borrower.setBorrowerCardNo(bordao.addBorrower(borrower));//formerly addBorrowerWithPk
+			borrower.setBorrowerCardNo(bordao.addBorrowerWithPk(borrower));//formerly addBorrowerWithPk
 			return "Borrower added successfully, their card # is: " + borrower.getBorrowerCardNo();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -99,7 +103,7 @@ public class AdministratorService {
 			if (genre.getGenreName() != null && genre.getGenreName().length() > 45) {
 				return "Author name cannot be empty and should be at most 45 characters in length";
 			}
-			genre.setGenreId(gdao.addGenre(genre));//formerly addGenreWithPk
+			genre.setGenreId(gdao.addGenreWithPk(genre));//formerly addGenreWithPk
 			return "Genre added successfully";
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -115,7 +119,7 @@ public class AdministratorService {
 			if(libraryBranch.getBranchAddress() != null && libraryBranch.getBranchAddress().length() > 45) {
 				return "Branch address cannot be empty and should be at most 45 characters in length";
 			}
-			libraryBranch.setBranchId(lbdao.addLibraryBranch(libraryBranch));//formally addLibraryBranchWithPk
+			libraryBranch.setBranchId(lbdao.addLibraryBranchWithPk(libraryBranch));//formally addLibraryBranchWithPk
 			return "Branch added successfully";
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -131,7 +135,7 @@ public class AdministratorService {
 			if(publisher.getPublisherAddress() != null && publisher.getPublisherAddress().length() > 45) {
 				return "Publisher address cannot be empty and should be at most 45 characters in length";
 			}
-			publisher.setPublisherId(pdao.addPublisher(publisher));//formerly addPublisherWithPk
+			publisher.setPublisherId(pdao.addPublisherWithPk(publisher));//formerly addPublisherWithPk
 			return "Publisher added successfully";
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -219,6 +223,7 @@ public class AdministratorService {
 		}
 	}
 
+	@RequestMapping(value = "/getAuthors", method = RequestMethod.GET, produces = "application/json")
 	public List<Author> getAuthors(String searchString) {
 		try {
 			if (searchString != null) {

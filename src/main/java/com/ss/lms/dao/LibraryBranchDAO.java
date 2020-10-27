@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.stereotype.Repository;
 
 import com.ss.lms.entity.Borrower;
 import com.ss.lms.entity.LibraryBranch;
@@ -17,15 +18,16 @@ import com.ss.lms.entity.LibraryBranch;
  * @libraryBranch ppradhan, caq
  *
  */
+@Repository
 public class LibraryBranchDAO extends BaseDAO<LibraryBranch> implements ResultSetExtractor<List<LibraryBranch>>{
 
-	public Integer addLibraryBranch(LibraryBranch libraryBranch) throws ClassNotFoundException, SQLException { //Still needs to be edited
-		return jdbcTemplate.update("INSERT INTO tbl_library_branch (branchName, branchAddress) VALUES (?, ?)", new Object[] { libraryBranch.getBranchName(), libraryBranch.getBranchAddress() });
+	public void addLibraryBranch(LibraryBranch libraryBranch) throws ClassNotFoundException, SQLException { //Still needs to be edited
+		jdbcTemplate.update("INSERT INTO tbl_library_branch (branchName, branchAddress) VALUES (?, ?)", new Object[] { libraryBranch.getBranchName(), libraryBranch.getBranchAddress() });
 	}
 	
-//	public Integer addLibraryBranchWithPk(LibraryBranch libraryBranch) throws ClassNotFoundException, SQLException {//Still needs to be edited
-//		return jdbcTemplate.update("INSERT INTO tbl_library_branch (branchName, branchAddress) VALUES (?, ?)", new Object[] { libraryBranch.getBranchName(), libraryBranch.getBranchAddress() });
-//	}
+	public Integer addLibraryBranchWithPk(LibraryBranch libraryBranch) throws ClassNotFoundException, SQLException {//Still needs to be edited
+		return jdbcTemplate.update("INSERT INTO tbl_library_branch (branchName, branchAddress) VALUES (?, ?)", new Object[] { libraryBranch.getBranchName(), libraryBranch.getBranchAddress() });
+	}
 
 	public void updateLibraryBranch(LibraryBranch libraryBranch) throws ClassNotFoundException, SQLException {//Still needs to be edited
 		jdbcTemplate.update("UPDATE tbl_library_branch SET branchName = ?, branchAddress = ? WHERE branchId = ?",

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.stereotype.Repository;
 
 import com.ss.lms.entity.Publisher;
 
@@ -16,15 +17,16 @@ import com.ss.lms.entity.Publisher;
  * @publisher caq
  *
  */
+@Repository
 public class PublisherDAO extends BaseDAO<Publisher> implements ResultSetExtractor<List<Publisher>>{
 
-	public Integer addPublisher(Publisher publisher) throws ClassNotFoundException, SQLException { //Still needs to be edited
-		return jdbcTemplate.update("INSERT INTO tbl_publisher (publisherName, publisherAddress) VALUES (?, ?)", new Object[] { publisher.getPublisherName(), publisher.getPublisherAddress() });
+	public void addPublisher(Publisher publisher) throws ClassNotFoundException, SQLException { //Still needs to be edited
+		jdbcTemplate.update("INSERT INTO tbl_publisher (publisherName, publisherAddress) VALUES (?, ?)", new Object[] { publisher.getPublisherName(), publisher.getPublisherAddress() });
 	}
 	
-//	public Integer addPublisherWithPk(Publisher publisher) throws ClassNotFoundException, SQLException {//Still needs to be edited
-//		return jdbcTemplate.update("INSERT INTO tbl_publisher (publisherName, publisherAddress) VALUES (?, ?)", new Object[] { publisher.getPublisherName(), publisher.getPublisherAddress() });
-//	}
+	public Integer addPublisherWithPk(Publisher publisher) throws ClassNotFoundException, SQLException {//Still needs to be edited
+		return jdbcTemplate.update("INSERT INTO tbl_publisher (publisherName, publisherAddress) VALUES (?, ?)", new Object[] { publisher.getPublisherName(), publisher.getPublisherAddress() });
+	}
 
 	public void updatePublisher(Publisher publisher) throws ClassNotFoundException, SQLException {//Still needs to be edited
 		jdbcTemplate.update("UPDATE tbl_publisher SET publisherName = ?, publisherAddress = ? WHERE publisherId = ?",

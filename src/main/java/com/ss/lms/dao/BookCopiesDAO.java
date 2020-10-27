@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.stereotype.Repository;
 
 import com.ss.lms.entity.Book;
 import com.ss.lms.entity.BookCopies;
 import com.ss.lms.entity.LibraryBranch;
 
+@Repository
 public class BookCopiesDAO extends BaseDAO<BookCopies> implements ResultSetExtractor<List<BookCopies>>{
 
 	public void addBookCopies(BookCopies bc) throws SQLException, ClassNotFoundException {

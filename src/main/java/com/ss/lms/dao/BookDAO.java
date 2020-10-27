@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.stereotype.Repository;
 
 import com.ss.lms.entity.Book;
 import com.ss.lms.entity.Borrower;
@@ -18,15 +19,16 @@ import com.ss.lms.entity.LibraryBranch;
  * @book ppradhan, caq
  *
  */
+@Repository
 public class BookDAO extends BaseDAO<Book> implements ResultSetExtractor<List<Book>>{
 
-	public Integer addBook(Book book) throws ClassNotFoundException, SQLException {
-		return jdbcTemplate.update("INSERT INTO tbl_book (title, pubId) VALUES (?, ?)", new Object[] { book.getTitle(), book.getPublisher().getPublisherId() });
+	public void addBook(Book book) throws ClassNotFoundException, SQLException {
+		 jdbcTemplate.update("INSERT INTO tbl_book (title, pubId) VALUES (?, ?)", new Object[] { book.getTitle(), book.getPublisher().getPublisherId() });
 	}
 	
-//	public Integer addBookWithPk(Book book) throws ClassNotFoundException, SQLException {
-//		return jdbcTemplate.update("INSERT INTO tbl_book (title, pubId) VALUES (?, ?)", new Object[] { book.getTitle(), book.getPublisher().getPublisherId() });
-//	}
+	public Integer addBookWithPk(Book book) throws ClassNotFoundException, SQLException {
+		return jdbcTemplate.update("INSERT INTO tbl_book (title, pubId) VALUES (?, ?)", new Object[] { book.getTitle(), book.getPublisher().getPublisherId() });
+	}
 
 	public void updateBook(Book book) throws ClassNotFoundException, SQLException {
 		jdbcTemplate.update("UPDATE tbl_book SET title = ?, pubId = ? WHERE bookId = ?",

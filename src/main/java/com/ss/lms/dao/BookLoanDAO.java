@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.stereotype.Repository;
 
 import com.ss.lms.entity.Book;
 import com.ss.lms.entity.BookLoan;
@@ -16,6 +17,7 @@ import com.ss.lms.entity.LibraryBranch;
  * @bookLoan ppradhan, caq
  *
  */
+@Repository
 public class BookLoanDAO extends BaseDAO<BookLoan> implements ResultSetExtractor<List<BookLoan>>{
 	
 	public void addBookLoan(BookLoan bookLoan) throws SQLException, ClassNotFoundException {

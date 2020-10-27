@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.stereotype.Repository;
 
 import com.ss.lms.entity.Borrower;
 
@@ -13,15 +14,16 @@ import com.ss.lms.entity.Borrower;
  * @borrower ppradhan, caq
  *
  */
+@Repository
 public class BorrowerDAO extends BaseDAO<Borrower> implements ResultSetExtractor<List<Borrower>>{
 
-	public Integer addBorrower(Borrower borrower) throws ClassNotFoundException, SQLException { //Still needs to be edited
-		return jdbcTemplate.update("INSERT INTO tbl_borrower (name, address, phone) VALUES (?, ?, ?)", new Object[] { borrower.getBorrowerName(), borrower.getBorrowerAddress(), borrower.getBorrowerPhone() });
+	public void addBorrower(Borrower borrower) throws ClassNotFoundException, SQLException { //Still needs to be edited
+		jdbcTemplate.update("INSERT INTO tbl_borrower (name, address, phone) VALUES (?, ?, ?)", new Object[] { borrower.getBorrowerName(), borrower.getBorrowerAddress(), borrower.getBorrowerPhone() });
 	}
 	
-//	public Integer addBorrowerWithPk(Borrower borrower) throws ClassNotFoundException, SQLException {//Still needs to be edited
-//		return jdbcTemplate.update("INSERT INTO tbl_borrower (name, address, phone) VALUES (?, ?, ?)", new Object[] { borrower.getBorrowerName(), borrower.getBorrowerAddress(), borrower.getBorrowerPhone() });
-//	}
+	public Integer addBorrowerWithPk(Borrower borrower) throws ClassNotFoundException, SQLException {//Still needs to be edited
+		return jdbcTemplate.update("INSERT INTO tbl_borrower (name, address, phone) VALUES (?, ?, ?)", new Object[] { borrower.getBorrowerName(), borrower.getBorrowerAddress(), borrower.getBorrowerPhone() });
+	}
 
 	public void updateBorrower(Borrower borrower) throws ClassNotFoundException, SQLException {//Still needs to be edited
 		jdbcTemplate.update("UPDATE tbl_borrower SET name = ?, address = ?, phone = ? WHERE cardNo = ?",
